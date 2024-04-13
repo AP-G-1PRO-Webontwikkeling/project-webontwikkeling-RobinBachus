@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("partials/head", {title: "error"}) %>
+    <body class="vh-100">
+        <%- include('partials/nav', {active: ''}) %>
+        <main class="d-flex h-75 p-3 justify-content-center align-items-center">
+            <div class="card mb-3">
+                <div class="card-header text-bg-danger">
+                    Something went wrong!
+                </div>
+                <div class="card-body bg-danger-subtle">
+                    <p class="card-text">
+                        Message: <%= message %> <br />
+                        Status: <%= status %>
+                    </p>
+                    <button
+                        class="btn btn-primary"
+                        onclick="window.history.back()"
+                    >
+                        Go Back
+                    </button>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

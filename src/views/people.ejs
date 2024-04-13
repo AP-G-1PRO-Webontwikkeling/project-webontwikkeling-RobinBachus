@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <%- include("partials/head", {title: "people"}) %>
+    <body>
+        <%- include('partials/nav.ejs', {active: 'people'}) %>
+        <main class="mx-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Image</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Birth Year</th>
+                        <th scope="col">Alive</th>
+                        <th scope="col">Field</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% cards.forEach(card => { %> <%-
+                    include('partials/card.ejs', { card }); %> <% }) %>
+                </tbody>
+            </table>
+        </main>
+    </body>
+</html>

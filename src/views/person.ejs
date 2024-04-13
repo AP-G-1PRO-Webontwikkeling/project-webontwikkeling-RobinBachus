@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("partials/head", { title: person.name }) %>
+    <body>
+        <%- include('partials/nav', { active: 'people' }) %>
+        <div class="d-flex justify-content-between container mt-5">
+            <div class="card flex-fill w-100">
+                <img
+                    src="<%= person.picture %>"
+                    class="card-img-top object-fit-cover"
+                    alt="<%= person.name %>"
+                />
+                <div class="card-body">
+                    <h5 class="card-title"><%= person.name %></h5>
+                    <p class="card-text"><%= person.description %></p>
+                </div>
+            </div>
+            <div class="card flex-shrink-1">
+                <div class="card-header">
+                    <h5>More about <%= person.name %></h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>Birth Date:</strong>
+                        <%= new
+                        Date(person.birth_date).getFullYear().toString().padStart(4)
+                        %> <%= person.born_bc ? 'BC' : 'AD' %>
+                    </p>
+                    <p class="card-text">
+                        <strong>Age:</strong> <%= person.age %>
+                        <i
+                            class="<%= person.alive ? '' : 'fas fa-cross' %>"
+                        ></i>
+                    </p>
+                    <p class="card-text">
+                        <strong>Field:</strong> <%= person.field %>
+                    </p>
+                    <p>
+                        <strong>Main interest</strong>
+                        <% person.main_interests.forEach(interest => { %>
+                        <span class="badge bg-primary"><%= interest %></span>
+                        <% }) %>
+                    </p>
+                    <div class="card">
+                        <p class="card-header">
+                            <strong>Best Known For:</strong>
+                            <%= person.best_known_for.name %>
+                        </p>
+                        <p class="card-text px-3 py-1">
+                            <%= person.best_known_for.description %>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

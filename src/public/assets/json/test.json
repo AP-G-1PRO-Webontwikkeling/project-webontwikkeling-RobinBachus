@@ -1,0 +1,215 @@
+[
+    {
+        "id": "MATH-01",
+        "name": "Pythagoras",
+        "description": "Pythagoras was a Greek philosopher who made important developments in mathematics, astronomy, and the theory of music. The theorem now known as Pythagoras's theorem was known to the Babylonians 1000 years earlier but he may have been the first to prove it.",
+        "age": 40,
+        "alive": false,
+        "born_bc": true,
+        "birth_date": "570/01/01",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/pythagoras.jpeg",
+        "field": "Geometry",
+        "main_interests": [
+            "Ethics",
+            "Mathematics",
+            "Metaphysics",
+            "Music",
+            "theory",
+            "Mysticism",
+            "Politics",
+            "Religion"
+        ],
+        "best_known_for": {
+            "id": "FORM-01",
+            "name": "Pythagorean theorem",
+            "description": "In mathematics, the Pythagorean theorem or Pythagoras' theorem is a fundamental relation in Euclidean geometry between the three sides of a right triangle. It states that the area of the square whose side is the hypotenuse (the side opposite the right angle) is equal to the sum of the areas of the squares on the other two sides."
+        }
+    },
+    {
+        "id": "MATH-02",
+        "name": "Euclid",
+        "description": "Euclid was a Greek mathematician often referred to as the 'Father of Geometry.' He wrote 'Elements,' a comprehensive compilation of knowledge in mathematics at the time, covering topics from geometry to number theory.",
+        "age": 77,
+        "alive": false,
+        "born_bc": true,
+        "birth_date": "330/01/01",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/euclid.webp",
+        "field": "Geometry",
+        "main_interests": ["Geometry", "Number Theory"],
+        "best_known_for": {
+            "id": "FORM-02",
+            "name": "Euclidean Geometry",
+            "description": "Euclidean geometry is a mathematical system attributed to Euclid, which includes notions of plane geometry, proportion, and number theory."
+        }
+    },
+    {
+        "id": "MATH-03",
+        "name": "Archimedes",
+        "description": "Archimedes was a Greek mathematician, physicist, engineer, inventor, and astronomer. He is best known for his contributions to mathematics, especially in the field of geometry and the calculation of pi.",
+        "age": 75,
+        "alive": false,
+        "born_bc": true,
+        "birth_date": "287/01/01",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/archimedes.jpg",
+        "field": "Geometry",
+        "main_interests": [
+            "Mathematics",
+            "Physics",
+            "Engineering",
+            "Invention",
+            "Astronomy"
+        ],
+        "best_known_for": {
+            "id": "FORM-03",
+            "name": "Archimedean Solids",
+            "description": "Archimedean solids are convex polyhedra with identical vertices, meaning that each vertex is surrounded by the same combination of faces."
+        }
+    },
+    {
+        "id": "MATH-04",
+        "name": "Ada Lovelace",
+        "description": "Ada Lovelace was an English mathematician and writer, chiefly known for her work on Charles Babbage's early mechanical general-purpose computer, the Analytical Engine. She is considered the world's first computer programmer.",
+        "age": 36,
+        "alive": false,
+        "born_bc": false,
+        "birth_date": "1815/12/10",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/ada_lovelace.webp",
+        "field": "Algebra",
+        "main_interests": ["Mathematics", "Computing", "Logic"],
+        "best_known_for": {
+            "id": "FORM-04",
+            "name": "Ada Lovelace's Notes",
+            "description": "Ada Lovelace is known for her notes on Charles Babbage's Analytical Engine, where she described an algorithm to be processed by the machine, making her the world's first computer programmer."
+        }
+    },
+    {
+        "id": "MATH-05",
+        "name": "Andrew Wiles",
+        "description": "Sir Andrew John Wiles is a British mathematician known for proving Fermat's Last Theorem. His proof, completed in 1994, was a significant mathematical achievement and solved a centuries-old problem in number theory.",
+        "age": 68,
+        "alive": true,
+        "born_bc": false,
+        "birth_date": "1953/04/11",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/andrew_wiles.jpg",
+        "field": "Number Theory",
+        "main_interests": ["Number Theory", "Algebraic Geometry"],
+        "best_known_for": {
+            "id": "FORM-05",
+            "name": "Fermat's Last Theorem",
+            "description": "Andrew Wiles is best known for proving Fermat's Last Theorem, a statement in number theory that had been an unsolved problem for over 350 years."
+        }
+    },
+    {
+        "id": "MATH-06",
+        "name": "Mary Cartwright",
+        "description": "Mary Cartwright was a British mathematician known for her contributions to nonlinear differential equations and to the theory of non-linear oscillations. She made significant advancements in the field of applied mathematics.",
+        "age": 97,
+        "alive": false,
+        "born_bc": false,
+        "birth_date": "1900/12/17",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/mary_cartwright.jpg",
+        "field": "Applied Mathematics",
+        "main_interests": ["Nonlinear Differential Equations", "Oscillations"],
+        "best_known_for": {
+            "id": "FORM-06",
+            "name": "Cartwright's Theorem",
+            "description": "Mary Cartwright is known for Cartwright's Theorem, which provides conditions for the existence of solutions to certain differential equations."
+        }
+    },
+    {
+        "id": "MATH-07",
+        "name": "John von Neumann",
+        "description": "John von Neumann was a Hungarian-American mathematician and polymath who made contributions to game theory, quantum mechanics, computer science, and statistics. He played a key role in the development of the digital computer.",
+        "age": 53,
+        "alive": false,
+        "born_bc": false,
+        "birth_date": "1903/12/28",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/john_von_neumann.jpg",
+        "field": "Mathematical Physics",
+        "main_interests": [
+            "Game Theory",
+            "Quantum Mechanics",
+            "Computer Science"
+        ],
+        "best_known_for": {
+            "id": "FORM-07",
+            "name": "Von Neumann Architecture",
+            "description": "John von Neumann is best known for his work on the Von Neumann architecture, a design concept for stored-program computers that forms the basis of modern computer architecture."
+        }
+    },
+    {
+        "id": "MATH-08",
+        "name": "Karen Uhlenbeck",
+        "description": "Karen Uhlenbeck is an American mathematician known for her work in geometric analysis. She has made significant contributions to partial differential equations and the calculus of variations. Uhlenbeck was awarded the Abel Prize in 2019.",
+        "age": 79,
+        "alive": true,
+        "born_bc": false,
+        "birth_date": "1942/08/24",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/karen_uhlenbeck.jpg",
+        "field": "Geometric Analysis",
+        "main_interests": [
+            "Partial Differential Equations",
+            "Calculus of Variations"
+        ],
+        "best_known_for": {
+            "id": "FORM-08",
+            "name": "Uhlenbeck Compactness Theorem",
+            "description": "Karen Uhlenbeck is known for the Uhlenbeck Compactness Theorem, a result in geometric analysis and the calculus of variations."
+        }
+    },
+    {
+        "id": "MATH-09",
+        "name": "Grigori Perelman",
+        "description": "Grigori Perelman is a Russian mathematician known for proving the Poincaré conjecture, a significant problem in topology. Despite solving one of the Millennium Prize Problems, he declined the monetary award and retired from academia.",
+        "age": 56,
+        "alive": true,
+        "born_bc": false,
+        "birth_date": "1966/06/13",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/grigori_perelman.jpg",
+        "field": "Topology",
+        "main_interests": ["Topology", "Geometric Analysis"],
+        "best_known_for": {
+            "id": "FORM-09",
+            "name": "Poincaré Conjecture",
+            "description": "Grigori Perelman is best known for proving the Poincaré conjecture, a famous problem in the field of topology."
+        }
+    },
+    {
+        "id": "MATH-10",
+        "name": "Maryam Mirzakhani",
+        "description": "Maryam Mirzakhani was an Iranian mathematician and the first woman to be awarded the Fields Medal. She made groundbreaking contributions to the understanding of the symmetry of curved surfaces and the dynamics of complex surfaces.",
+        "age": 40,
+        "alive": false,
+        "born_bc": false,
+        "birth_date": "1977/05/03",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/maryam_mirzakhani.jpg",
+        "field": "Dynamical Systems",
+        "main_interests": ["Dynamical Systems", "Symmetry"],
+        "best_known_for": {
+            "id": "FORM-10",
+            "name": "Mirzakhani's Work on Moduli Spaces",
+            "description": "Maryam Mirzakhani is known for her work on the dynamics and geometry of moduli spaces, which earned her the Fields Medal in 2014."
+        }
+    },
+    {
+        "id": "MATH-11",
+        "name": "Terence Tao",
+        "description": "Terence Tao is an Australian-American mathematician known for his contributions to various areas of mathematics, including harmonic analysis, partial differential equations, and additive combinatorics. He became a full professor at UCLA at the age of 24.",
+        "age": 47,
+        "alive": true,
+        "born_bc": false,
+        "birth_date": "1975/07/17",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/terence_tao.jpg",
+        "field": "Harmonic Analysis",
+        "main_interests": [
+            "Harmonic Analysis",
+            "Partial Differential Equations",
+            "Combinatorics"
+        ],
+        "best_known_for": {
+            "id": "FORM-11",
+            "name": "Green-Tao Theorem",
+            "description": "Terence Tao, along with Ben Green, is known for the Green-Tao Theorem, which establishes the existence of arithmetic progressions in the primes."
+        }
+    }
+]
