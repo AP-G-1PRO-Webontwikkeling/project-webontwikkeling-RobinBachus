@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <%- include("partials/head", {title: "Search"}) %>
+
+    <body>
+        <%- include('partials/nav.ejs', {active: ''}) %>
+        <main class="mx-5">
+            <h1>Search Results for "<%= query %>"</h1>
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Type</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- God I hate this so much -->
+                    <% if (results.length === 0) { %>
+                    <tr>
+                        <td colspan="4">No results found</td>
+                    </tr>
+                    <% } else { %> <% results.forEach(result => { %> <%-
+                    include('partials/object.ejs', { object: result, showType:
+                    true, type: result.id.includes("MATH") ? "people" :
+                    "formulas" }); %> <% }) %> <% } %>
+                </tbody>
+            </table>
+        </main>
+    </body>
+</html>

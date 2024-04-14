@@ -1,5 +1,5 @@
 <tr>
-    <th scope="row">
+    <td scope="row" class="d-flex align-items-top">
         <a href="/people/<%= card.name %>">
             <img
                 class="img-thumbnail object-fit-cover"
@@ -7,15 +7,26 @@
                 alt="<%= card.name %>"
                 width="100"
                 height="100"
-        /></a>
-    </th>
+            />
+            <%= card.name %>
+        </a>
+    </td>
 
-    <td><a href="/people/<%= card.name %>"><%= card.name %></a></td>
+    <td>
+        <%= card.age %> <i class="<%= card.alive ? '' : 'fas fa-cross' %>"></i>
+    </td>
 
     <td>
         <%= new Date(card.birth_date).getFullYear().toString().padStart(4) %>
         <%= card.born_bc ? 'BC' :'AD' %>
     </td>
-    <td><%= card.alive %></td>
-    <td><%= card.field %></td>
+    <% const fieldColors = [{field: 'Algebra', color: 'primary'}, {field:
+    'Geometry', color: 'secondary'}, {field: 'Calculus', color: 'success'},
+    {field: 'Statistics', color: 'danger'}]; %> <% const fieldColor =
+    fieldColors.find(f => f.field === card.field) ?? {field: 'Unknown', color:
+    'warning'} %>
+
+    <td>
+        <span class="badge bg-<%= fieldColor.color %>"><%= card.field %></span>
+    </td>
 </tr>

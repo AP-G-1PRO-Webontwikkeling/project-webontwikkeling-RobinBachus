@@ -1,16 +1,30 @@
 <!DOCTYPE html>
 <html>
-    <%- include("partials/head", {title: "people"}) %>
+    <%- include("partials/head", {title: "People"}) %>
     <body>
         <%- include('partials/nav.ejs', {active: 'people'}) %>
         <main class="mx-5">
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">Image</th>
-                        <th scope="col">Name</th>
+                        <!-- Make name sortable -->
+                        <th scope="col" class="">
+                            Name
+                            <section class="d-flex">
+                                <a
+                                    href="/people?sort=name&order=asc"
+                                    class="fas fa-sort-alpha-up"
+                                >
+                                </a>
+                                <a
+                                    href="/people?sort=name&order=desc"
+                                    class="fas fa-sort-alpha-down"
+                                >
+                                </a>
+                            </section>
+                        </th>
+                        <th scope="col">Age</th>
                         <th scope="col">Birth Year</th>
-                        <th scope="col">Alive</th>
                         <th scope="col">Field</th>
                     </tr>
                 </thead>

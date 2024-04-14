@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <%- include("partials/head", {title: formula.name }) %>
+    <body>
+        <%- include('partials/nav.ejs', {active: 'formulas'}) %>
+        <main class="d-flex justify-content-between container mt-5">
+            <section class="card flex-fill">
+                <header class="card-header">
+                    <h1><%= formula.name %></h1>
+                </header>
+                <span class="card-body">
+                    <p class="card-text"><%= formula.description %></p>
+                </span>
+            </section>
+        </main>
+    </body>
+</html>

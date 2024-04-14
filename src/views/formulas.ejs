@@ -1,7 +1,34 @@
 <!DOCTYPE html>
 <html>
-    <%- include("partials/head", {title: "Home"}) %>
-    <body class="d-flex flex-nowrap">
+    <%- include("partials/head", {title: "Formulas"}) %>
+
+    <body>
         <%- include('partials/nav.ejs', {active: 'formulas'}) %>
+        <main class="mx-5">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% formulas.forEach(object => { %>
+                    <tr>
+                        <th><%= object.id %></th>
+                        <td>
+                            <a href="/formulas/<%= object.name %>/">
+                                <%= object.name %>
+                            </a>
+                        </td>
+                        <td>
+                            <p><%= object.description %></p>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </main>
     </body>
 </html>

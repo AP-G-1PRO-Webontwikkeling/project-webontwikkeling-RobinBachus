@@ -91,7 +91,7 @@
         "born_bc": false,
         "birth_date": "1953/04/11",
         "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/andrew_wiles.jpg",
-        "field": "Number Theory",
+        "field": "Algebra",
         "main_interests": ["Number Theory", "Algebraic Geometry"],
         "best_known_for": {
             "id": "FORM-05",
@@ -108,7 +108,7 @@
         "born_bc": false,
         "birth_date": "1900/12/17",
         "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/mary_cartwright.jpg",
-        "field": "Applied Mathematics",
+        "field": "Calculus",
         "main_interests": ["Nonlinear Differential Equations", "Oscillations"],
         "best_known_for": {
             "id": "FORM-06",
@@ -125,7 +125,7 @@
         "born_bc": false,
         "birth_date": "1903/12/28",
         "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/john_von_neumann.jpg",
-        "field": "Mathematical Physics",
+        "field": "Calculus",
         "main_interests": [
             "Game Theory",
             "Quantum Mechanics",
@@ -146,7 +146,7 @@
         "born_bc": false,
         "birth_date": "1942/08/24",
         "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/karen_uhlenbeck.jpg",
-        "field": "Geometric Analysis",
+        "field": "Geometry",
         "main_interests": [
             "Partial Differential Equations",
             "Calculus of Variations"
@@ -166,7 +166,7 @@
         "born_bc": false,
         "birth_date": "1966/06/13",
         "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/grigori_perelman.jpg",
-        "field": "Topology",
+        "field": "Geometry",
         "main_interests": ["Topology", "Geometric Analysis"],
         "best_known_for": {
             "id": "FORM-09",
@@ -183,7 +183,7 @@
         "born_bc": false,
         "birth_date": "1977/05/03",
         "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/maryam_mirzakhani.jpg",
-        "field": "Dynamical Systems",
+        "field": "Calculus",
         "main_interests": ["Dynamical Systems", "Symmetry"],
         "best_known_for": {
             "id": "FORM-10",
@@ -200,7 +200,7 @@
         "born_bc": false,
         "birth_date": "1975/07/17",
         "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/terence_tao.jpg",
-        "field": "Harmonic Analysis",
+        "field": "Calculus",
         "main_interests": [
             "Harmonic Analysis",
             "Partial Differential Equations",
@@ -210,6 +210,23 @@
             "id": "FORM-11",
             "name": "Green-Tao Theorem",
             "description": "Terence Tao, along with Ben Green, is known for the Green-Tao Theorem, which establishes the existence of arithmetic progressions in the primes."
+        }
+    },
+    {
+        "id": "MATH-12",
+        "name": "Sir Ronald Aylmer Fisher",
+        "description": "Sir Ronald A. Fisher was a British statistician and geneticist. For his work in statistics, he has been described as a genius who almost single-handedly created the foundations for modern statistical science.",
+        "age": 72,
+        "alive": false,
+        "born_bc": false,
+        "birth_date": "1890-02-17",
+        "picture": "https://raw.githubusercontent.com/RobinBachus/mathematician-api/main/img/sir_ronald_aylmer_fisher.png",
+        "field": "Statistics",
+        "main_interests": ["Statistics", "Genetics"],
+        "best_known_for": {
+            "id": "FORM-12",
+            "name": "Fisher's exact test",
+            "description": "A statistical significance test used in the analysis of contingency tables."
         }
     }
 ]

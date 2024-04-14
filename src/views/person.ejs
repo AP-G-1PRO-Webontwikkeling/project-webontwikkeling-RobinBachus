@@ -3,7 +3,7 @@
     <%- include("partials/head", { title: person.name }) %>
     <body>
         <%- include('partials/nav', { active: 'people' }) %>
-        <div class="d-flex justify-content-between container mt-5">
+        <main class="d-flex justify-content-between container mt-5">
             <div class="card flex-fill w-100">
                 <img
                     src="<%= person.picture %>"
@@ -22,9 +22,11 @@
                 <div class="card-body">
                     <p class="card-text">
                         <strong>Birth Date:</strong>
-                        <%= new
+                        <% if (person.born_bc) { %> <%= new
                         Date(person.birth_date).getFullYear().toString().padStart(4)
-                        %> <%= person.born_bc ? 'BC' : 'AD' %>
+                        %> <%= person.born_bc ? 'BC' : '' %> <% } else { %> <%=
+                        new Date(person.birth_date).toLocaleDateString("nl-BE")
+                        %> <% } %>
                     </p>
                     <p class="card-text">
                         <strong>Age:</strong> <%= person.age %>
@@ -52,6 +54,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </main>
     </body>
 </html>

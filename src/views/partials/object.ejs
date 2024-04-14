@@ -1,0 +1,29 @@
+<tr>
+    <th scope="row" class="align-middle">
+        <a
+            href="<%= type %>/<%= object.name%>/"
+            class="d-flex text-secondary text-decoration-none"
+            style="width: 10rch !important"
+        >
+            <%= object.id %>
+        </a>
+    </th>
+
+    <% if (showType ?? false) { %>
+    <td class="align-middle">
+        <% const color = object.id.includes("MATH") ? "primary" : "danger"; %>
+        <a href="<%= type %>" class="text-decoration-none">
+            <p class="badge mb-0 bg-<%= color %>"><%= type %></p>
+        </a>
+    </td>
+    <% } %>
+
+    <td class="align-middle">
+        <a href="<%= type %>/<%= object.name%>/" class="text-decoration-none">
+            <%= object.name %>
+        </a>
+    </td>
+    <td>
+        <p style="max-width: 40rem !important"><%= object.description %></p>
+    </td>
+</tr>
