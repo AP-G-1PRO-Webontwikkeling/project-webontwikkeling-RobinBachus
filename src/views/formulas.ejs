@@ -14,19 +14,9 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <% formulas.forEach(object => { %>
-                    <tr>
-                        <th><%= object.id %></th>
-                        <td>
-                            <a href="/formulas/<%= object.name %>/">
-                                <%= object.name %>
-                            </a>
-                        </td>
-                        <td>
-                            <p><%= object.description %></p>
-                        </td>
-                    </tr>
-                    <% }) %>
+                    <% formulas.forEach(formula => { %> <%-
+                    include('partials/object.ejs', { object: formula, type:
+                    "formulas", showType: false }); %> <% }) %>
                 </tbody>
             </table>
         </main>
