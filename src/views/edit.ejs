@@ -58,16 +58,18 @@
                         </p>
                         <p>
                             <strong>Main interest</strong>
-                            <% person.main_interests.forEach(interest => { %>
+                            <% person.main_interests.forEach((interest, i) => {
+                            %>
                             <span
                                 class="badge bg-primary d-inline-flex align-items-center justify-content-center my-1"
                             >
                                 <%= interest %>
                                 <input
                                     type="button"
-                                    class="btn btn-danger btn-sm p-1 ms-1 d-inline-flex align-items-center justify-content-center"
+                                    class="btn btn-danger btn-sm p-1 ms-1 d-inline-flex align-items-center justify-content-center remove"
                                     style="line-height: 1ch !important"
                                     value="x"
+                                    onclick="this.parentElement.remove();"
                                 />
                             </span>
                             <% }) %>
