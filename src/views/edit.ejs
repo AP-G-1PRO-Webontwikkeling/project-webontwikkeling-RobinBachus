@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include("partials/head", { title: person.name }) %>
+    <body>
+        <%- include('partials/nav', { active: 'people' }) %>
+        <form method="post" action="edit">
+            <main class="d-flex justify-content-between container mt-5">
+                <div class="card flex-fill w-100">
+                    <img
+                        src="<%= person.picture %>"
+                        class="card-img-top object-fit-cover"
+                        alt="<%= person.name %>"
+                    />
+                    <div class="card-body">
+                        <h5 class="card-title"><%= person.name %></h5>
+                        <p class="card-text"><%= person.description %></p>
+                    </div>
+                </div>
+                <div class="card flex-shrink-1">
+                    <div class="card-header">
+                        <h5>More about <%= person.name %></h5>
+                    </div>
+                    <div class="card-body">
+                        <p class="card-text">
+                            <strong>Birth Date:</strong>
+                            <% if (person.born_bc) { %> <%= new
+                            Date(person.birth_date).getFullYear().toString().padStart(4)
+                            %> <%= person.born_bc ? 'BC' : '' %> <% } else { %>
+                            <%= new
+                            Date(person.birth_date).toLocaleDateString("nl-BE")
+                            %> <% } %>
+                        </p>
+                        <p class="card-text">
+                            <label for="age"><strong>Age:</strong></label>
+                            <input
+                                name="age"
+                                type="number"
+                                value="<%= person.age %>"
+                                style="width: 50px"
+                                min="1"
+                                max="150"
+                            />
+                            <label for="alive">
+                                <i
+                                    class="<%= person.alive ? '' : 'fas fa-cross' %>"
+                                ></i>
+                            </label>
+                            <!-- prettier-ignore -->
+                            <input
+                                type="checkbox"
+                                name="alive"
+                                id="alive"
+                                <% if (!person.alive) { %>
+                            checked <% } %> />
+                        </p>
+                        <p class="card-text">
+                            <strong>Field:</strong> <%= person.field %>
+                        </p>
+                        <p>
+                            <strong>Main interest</strong>
+                            <% person.main_interests.forEach(interest => { %>
+                            <span
+                                class="badge bg-primary d-inline-flex align-items-center justify-content-center my-1"
+                            >
+                                <%= interest %>
+                                <input
+                                    type="button"
+                                    class="btn btn-danger btn-sm p-1 ms-1 d-inline-flex align-items-center justify-content-center"
+                                    style="line-height: 1ch !important"
+                                    value="x"
+                                />
+                            </span>
+                            <% }) %>
+                        </p>
+                        <div class="card">
+                            <p class="card-header">
+                                <strong>Best Known For:</strong>
+                                <a
+                                    href="/formulas/<%= person.best_known_for.name %>"
+                                    ><%= person.best_known_for.name %></a
+                                >
+                            </p>
+                            <p class="card-text px-3 py-1">
+                                <%= person.best_known_for.description %>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </form>
+    </body>
+</html>

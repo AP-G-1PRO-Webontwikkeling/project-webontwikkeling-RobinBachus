@@ -4,9 +4,8 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "start": "ts-node app.ts",
-        "server": "ts-node server.ts"
+        "server": "nodemon server.ts"
     },
     "repository": {
         "type": "git",
@@ -19,8 +18,10 @@
     },
     "homepage": "https://github.com/RobinBachus/mathematician-api#readme",
     "dependencies": {
+        "dotenv": "^16.4.5",
         "ejs": "^3.1.10",
         "express": "^4.19.2",
+        "mongodb": "^6.5.0",
         "nodemon": "^3.1.0",
         "readline-sync": "^1.4.10"
     },

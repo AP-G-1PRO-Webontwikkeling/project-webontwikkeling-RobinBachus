@@ -1,0 +1,7 @@
+{
+    "scripts": {
+        "start": "ts-node src/app.ts",
+        "server": "nodemon src/server.ts",
+        "preinstall": "cd src/"
+    }
+}

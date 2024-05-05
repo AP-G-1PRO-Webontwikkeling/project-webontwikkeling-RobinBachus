@@ -1,19 +1,20 @@
 import express from "express";
 import ejs, { render } from "ejs"; // This is used internally by express (I think)
 
-import {
-    ValueType,
-    compareString,
-    fetchJson,
-    includesString,
-    sortCopy,
-} from "./common";
-import type { Formula, Mathematician } from "./types";
+import { compareString, includesString, sortCopy } from "./common";
+import type { ValueType, Formula, Mathematician } from "./types";
+import Database from "./database";
+import { CleanUp } from "./cleanup";
 
 let data: Mathematician[] = [];
 
+let db: Database;
+
 (async () => {
-    data = await fetchJson("mathematicians");
+    db = new Database();
+    new CleanUp(db);
+    await db.connect();
+    data = await db.getMathematicians();
 })();
 
 // =================== Server ===================
@@ -38,16 +39,16 @@ app.get("/", (req, res) => {
 
 app.get("/people", async (req, res) => {
     let people = [...data];
-    let sort = "name";
+    let sort: keyof Mathematician = "name";
     let order = "asc";
     if (req.query.filter) {
         const filter = req.query.filter as string;
         people = data.filter((person) => includesString(person.name, filter));
     }
     if (req.query.sort) {
-        sort = req.query.sort as string;
+        sort = req.query.sort as keyof Mathematician;
         order = req.query.order as string;
-        people = sortData(sort as keyof Mathematician, order);
+        people = sortData(sort, order);
     }
 
     res.render("people", {
@@ -68,6 +69,19 @@ app.get("/people/:name", (req, res) => {
             status: `404 - Page Not Found`,
         });
     else res.render("person", { person });
+});
+
+app.get("/people/:name/edit", (req, res) => {
+    const name = req.params.name;
+    const person = data.find((person) => compareString(person.name, name));
+
+    // if person is not found return 404 page
+    if (!person)
+        res.status(404).render("error", {
+            message: "Person not found",
+            status: `404 - Page Not Found`,
+        });
+    else res.render("edit", { person });
 });
 
 app.get("/formulas", (req, res) => {

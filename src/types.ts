@@ -1,4 +1,6 @@
-export interface Mathematician {
+import { BSON, ObjectId } from "mongodb";
+
+export interface Mathematician extends BSON.Document {
     id: string;
     name: string;
     description: string;
@@ -18,3 +20,5 @@ export interface Formula {
     name: string;
     description: string;
 }
+
+export type ValueType = "string" | "number" | "date";
