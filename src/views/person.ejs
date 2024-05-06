@@ -1,61 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include("partials/head", { title: person.name }) %>
-    <body>
+    <body class="vh-100">
         <%- include('partials/nav', { active: 'people' }) %>
-        <main class="d-flex justify-content-between container mt-5">
-            <div class="card flex-fill w-100">
-                <img
-                    src="<%= person.picture %>"
-                    class="card-img-top object-fit-cover"
-                    alt="<%= person.name %>"
-                />
-                <div class="card-body">
-                    <h5 class="card-title"><%= person.name %></h5>
-                    <p class="card-text"><%= person.description %></p>
-                </div>
-            </div>
-            <div class="card flex-shrink-1">
-                <div class="card-header">
-                    <h5>More about <%= person.name %></h5>
-                </div>
-                <div class="card-body">
-                    <p class="card-text">
-                        <strong>Birth Date:</strong>
-                        <% if (person.born_bc) { %> <%= new
-                        Date(person.birth_date).getFullYear().toString().padStart(4)
-                        %> <%= person.born_bc ? 'BC' : '' %> <% } else { %> <%=
-                        new Date(person.birth_date).toLocaleDateString("nl-BE")
-                        %> <% } %>
+        <main class="d-flex justify-content-between container p-sm-5 p-2">
+            <div class="card-group">
+                <section class="card">
+                    <img
+                        src="<%= person.picture %>"
+                        class="card-img-top object-fit-cover img-fluid"
+                        alt="<%= person.name %>"
+                    />
+                    <section class="card-body">
+                        <h5 class="card-title"><%= person.name %></h5>
+                        <p class="card-text"><%= person.description %></p>
+                    </section>
+                </section>
+                <section class="card">
+                    <div class="card-header">
+                        <h5>About <%= person.name %></h5>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            <strong>Birth Date:</strong>
+                            <% if (person.born_bc) { %> <%= new
+                            Date(person.birth_date).getFullYear().toString().padStart(4)
+                            %> <%= person.born_bc ? 'BC' : '' %> <% } else { %>
+                            <%= new
+                            Date(person.birth_date).toLocaleDateString("nl-BE")
+                            %> <% } %>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Age:</strong>
+                            <%= person.age %>
+                            <!-- prettier ignore -->
+                            <i
+                                class="<%= person.alive ? '' : 'fas fa-cross' %>"
+                            ></i>
+                        </li>
+                        <li class="list-group-item">
+                            <strong>Field:</strong>
+                            <%- include("partials/field", { field: person.field
+                            }) %>
+                        </li>
+                        <li id="interests" class="list-group-item">
+                            <strong>Main interest:</strong>
+                            <!-- prettier ignore -->
+                            <section class="container">
+                                <section
+                                    class="row row-cols-1 row-cols-xs-1 row-cols-md-2 row-cols-lg-3"
+                                >
+                                    <% person.main_interests.forEach(interest =>
+                                    { %>
+                                    <span class="col">
+                                        <i
+                                            class="fa fa-tag fa-sm text-primary"
+                                            aria-hidden="true"
+                                        ></i>
+                                        <span class="interest-field">
+                                            <%= interest %>
+                                        </span>
+                                    </span>
+                                    <% }) %>
+                                </section>
+                            </section>
+                        </li>
+                    </ul>
+                    <p class="card-header">
+                        <strong>Best Known For:</strong>
+                        <a href="/formulas/<%= person.best_known_for.name %>"
+                            ><%= person.best_known_for.name %></a
+                        >
                     </p>
-                    <p class="card-text">
-                        <strong>Age:</strong> <%= person.age %>
-                        <i
-                            class="<%= person.alive ? '' : 'fas fa-cross' %>"
-                        ></i>
-                    </p>
-                    <p class="card-text">
-                        <strong>Field:</strong> <%= person.field %>
-                    </p>
-                    <p>
-                        <strong>Main interest</strong>
-                        <% person.main_interests.forEach(interest => { %>
-                        <span class="badge bg-primary"><%= interest %></span>
-                        <% }) %>
-                    </p>
-                    <div class="card">
-                        <p class="card-header">
-                            <strong>Best Known For:</strong>
-                            <a
-                                href="/formulas/<%= person.best_known_for.name %>"
-                                ><%= person.best_known_for.name %></a
-                            >
-                        </p>
+                    <section class="card-body">
                         <p class="card-text px-3 py-1">
                             <%= person.best_known_for.description %>
                         </p>
-                    </div>
-                </div>
+                    </section>
+                    <section class="card-footer text-end subdued">
+                        <a href="/people/<%= person.name %>/edit/">edit</a>
+                    </section>
+                </section>
             </div>
         </main>
     </body>

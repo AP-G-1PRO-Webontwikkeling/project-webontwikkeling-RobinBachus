@@ -1,0 +1,6 @@
+<% const fieldColors = [{field: 'Algebra', color: 'primary'}, {field:
+'Geometry', color: 'warning'}, {field: 'Calculus', color: 'success'}, {field:
+'Statistics', color: 'danger'}]; %> <% const fieldColor = fieldColors.find(f =>
+f.field === field) ?? {field: 'Unknown', color: 'warning'} %>
+
+<span class="badge bg-<%= fieldColor.color %>"><%= fieldColor.field %></span>

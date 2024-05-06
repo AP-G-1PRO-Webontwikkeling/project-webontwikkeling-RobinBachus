@@ -2,9 +2,10 @@ import express from "express";
 import ejs, { render } from "ejs"; // This is used internally by express (I think)
 
 import { compareString, includesString, sortCopy } from "./common";
-import type { ValueType, Formula, Mathematician } from "./types";
+import type { ValueType, Formula, Mathematician, Edit } from "./types";
 import Database from "./database";
 import { CleanUp } from "./cleanup";
+import { WithId } from "mongodb";
 
 let data: Mathematician[] = [];
 
@@ -23,6 +24,9 @@ const app = express();
 
 app.set("port", process.env.PORT || 3000);
 app.set("view engine", "ejs");
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
 app.use(express.static("public"));
 
 app.use((req, res, next) => {
@@ -71,6 +75,19 @@ app.get("/people/:name", (req, res) => {
     else res.render("person", { person });
 });
 
+app.get("/people_test/:name", (req, res) => {
+    const name = req.params.name;
+    const person = data.find((person) => compareString(person.name, name));
+
+    // if person is not found return 404 page
+    if (!person)
+        res.status(404).render("error", {
+            message: "Person not found",
+            status: `404 - Page Not Found`,
+        });
+    else res.render("person_test", { person });
+});
+
 app.get("/people/:name/edit", (req, res) => {
     const name = req.params.name;
     const person = data.find((person) => compareString(person.name, name));
@@ -82,6 +99,37 @@ app.get("/people/:name/edit", (req, res) => {
             status: `404 - Page Not Found`,
         });
     else res.render("edit", { person });
+});
+
+app.post("/people/:name/edit", async (req, res) => {
+    const name = req.params.name;
+    const person = data.find((person) => compareString(person.name, name));
+
+    // if person is not found return 500 page
+    if (!person) {
+        res.status(500).render("error", {
+            message: "Could not edit person",
+            status: `500 - Internal Server Error`,
+        });
+        return;
+    }
+
+    const editData = req.body as Edit;
+    const update: Partial<Mathematician> = {
+        age: editData.age,
+        alive: !editData.dead,
+        field: editData.field,
+        main_interests: editData.interests.split(";"),
+    };
+
+    db.log(`Updating ${person.name}...`);
+
+    const result = await db.updateMathematician(person._id, update);
+    db.log(result?.modifiedCount === 1 ? "Success" : "Failed");
+
+    data = await db.getMathematicians();
+
+    res.redirect(`/people/${req.params.name}`);
 });
 
 app.get("/formulas", (req, res) => {

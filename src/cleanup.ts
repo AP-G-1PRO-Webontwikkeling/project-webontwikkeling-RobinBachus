@@ -45,14 +45,14 @@ export class CleanUp extends Logger {
 
     private async _cleanUp(eventType?: string) {
         if (eventType) {
-            this.log(`CleanUp: Received signal: ${eventType}`);
+            this.log(`Received signal: ${eventType}`);
         }
 
-        this.log("CleanUp: Cleaning up...");
+        this.log("Cleaning up...");
 
         await this._database.close();
 
-        this.log("CleanUp: Cleanup complete");
+        this.log("Cleanup complete");
         this._removeListeners();
         process.exit(this._exitCode);
     }

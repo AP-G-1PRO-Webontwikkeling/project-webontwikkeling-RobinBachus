@@ -20,13 +20,6 @@
         <%= new Date(card.birth_date).getFullYear().toString().padStart(4) %>
         <%= card.born_bc ? 'BC' :'AD' %>
     </td>
-    <% const fieldColors = [{field: 'Algebra', color: 'primary'}, {field:
-    'Geometry', color: 'secondary'}, {field: 'Calculus', color: 'success'},
-    {field: 'Statistics', color: 'danger'}]; %> <% const fieldColor =
-    fieldColors.find(f => f.field === card.field) ?? {field: 'Unknown', color:
-    'warning'} %>
 
-    <td>
-        <span class="badge bg-<%= fieldColor.color %>"><%= card.field %></span>
-    </td>
+    <td><%- include('./field', { field: card.field }) %></td>
 </tr>

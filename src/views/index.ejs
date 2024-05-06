@@ -1,7 +1,56 @@
 <!DOCTYPE html>
 <html>
     <%- include("partials/head", {title: "Home"}) %>
-    <body class="d-flex flex-nowrap">
+    <body>
         <%- include('partials/nav.ejs', {active: 'home'}) %>
+        <main class="container">
+            <section class="row">
+                <section class="col">
+                    <h1 class="display-1">Welcome to my site!</h1>
+                    <p class="lead">
+                        Dive into the world of famous mathematicians and
+                        scientists.
+                    </p>
+                </section>
+            </section>
+            <section class="row">
+                <section class="col">
+                    <h2 class="display-4">About</h2>
+                    <p>
+                        This site is a collection of famous mathematicians and
+                        scientists. You can find information about their life,
+                        work, and main interests.
+                    </p>
+                </section>
+            </section>
+            <section class="row">
+                <section class="col">
+                    <h2 class="display-4">Features</h2>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group list-group-item">
+                            <i
+                                class="fa fa-check text-success"
+                                aria-hidden="true"
+                            ></i>
+                            <span>Search for a person</span>
+                        </li>
+                        <li class="list-group list-group-item">
+                            <i
+                                class="fa fa-wrench text-warning"
+                                aria-hidden="true"
+                            ></i>
+                            <span>Filter by field</span>
+                        </li>
+                        <li class="list-group list-group-item">
+                            <i
+                                class="fa fa-wrench text-warning"
+                                aria-hidden="true"
+                            ></i>
+                            <span>Sort by name</span>
+                        </li>
+                    </ul>
+                </section>
+            </section>
+        </main>
     </body>
 </html>

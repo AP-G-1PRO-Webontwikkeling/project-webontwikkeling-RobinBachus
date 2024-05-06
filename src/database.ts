@@ -2,12 +2,12 @@ import {
     Collection,
     Filter,
     MongoClient,
+    ObjectId,
     ServerApiVersion,
     Sort,
     WithId,
 } from "mongodb";
 import dotenv from "dotenv";
-import { EventEmitter } from "events";
 import { Mathematician } from "./types";
 import Logger from "./logger";
 import { Color } from "./common";
@@ -56,6 +56,10 @@ export default class Database extends Logger {
         return (
             (await this._collection?.find(filter).sort(sort).toArray()) ?? []
         );
+    }
+
+    async updateMathematician(_id: ObjectId, update: Partial<Mathematician>) {
+        return this._collection?.updateOne({ _id }, { $set: update });
     }
 
     onReady(callback: () => void) {

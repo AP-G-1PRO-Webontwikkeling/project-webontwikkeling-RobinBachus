@@ -4,12 +4,50 @@
     <body>
         <%- include('partials/nav.ejs', {active: 'people'}) %>
         <main class="mx-5">
+            <section id="tools" class="d-flex justify-content-between mt-3">
+                <h1>People</h1>
+                <form action="/people" method="GET">
+                    <div class="input-group">
+                        <label class="input-group-text" for="filter"
+                            >Filter fields:
+                        </label>
+                        <select name="filter" id="filter" class="form-select">
+                            <option value="All">All</option>
+                            <option value="Algebra">Algebra</option>
+                            <option value="Geometry">Geometry</option>
+                            <option value="Calculus">Calculus</option>
+                            <option value="Statistics">Statistics</option>
+                        </select>
+
+                        <label class="input-group-text" for="sort"
+                            >Sort by:</label
+                        >
+                        <select name="sort" id="sort" class="form-select">
+                            <option value="name">Name</option>
+                            <option value="age">Age</option>
+                            <option value="birth_year">Birth Year</option>
+                        </select>
+
+                        <label class="input-group-text" for="sort-order"
+                            >in</label
+                        >
+                        <select name="order" id="order" class="form-select">
+                            <option value="asc">Ascending</option>
+                            <option value="dsc">Descending</option>
+                        </select>
+
+                        <span class="input-group-text">order</span>
+
+                        <button type="submit" class="btn btn-primary">
+                            Apply
+                        </button>
+                    </div>
+                </form>
+            </section>
             <table class="table">
                 <thead>
                     <tr>
-                        <th scope="col">
-                            <a href="?sort:name&order:asc">Name</a>
-                        </th>
+                        <th scope="col">Name</th>
                         <th scope="col">Age</th>
                         <th scope="col">Birth Year</th>
                         <th scope="col">Field</th>

@@ -1,94 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
     <%- include("partials/head", { title: person.name }) %>
-    <body>
+    <body class="vh-100">
         <%- include('partials/nav', { active: 'people' }) %>
-        <form method="post" action="edit">
-            <main class="d-flex justify-content-between container mt-5">
-                <div class="card flex-fill w-100">
+        <main class="d-flex justify-content-between container p-sm-5 p-2">
+            <form
+                id="interest-form"
+                action="javascript:void(0);"
+                onsubmit="addInterest(this.interest.value)"
+            ></form>
+            <div class="card-group">
+                <section class="card">
                     <img
                         src="<%= person.picture %>"
                         class="card-img-top object-fit-cover"
                         alt="<%= person.name %>"
                     />
-                    <div class="card-body">
+                    <section class="card-body">
                         <h5 class="card-title"><%= person.name %></h5>
-                        <p class="card-text"><%= person.description %></p>
-                    </div>
-                </div>
-                <div class="card flex-shrink-1">
+                        <p class="card-text text-secondary"><%= person.description %></p>
+                    </section>
+                </section>
+                <form method="post" class="card ">
                     <div class="card-header">
-                        <h5>More about <%= person.name %></h5>
+                        <h5>About <%= person.name %></h5>
                     </div>
-                    <div class="card-body">
-                        <p class="card-text">
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
                             <strong>Birth Date:</strong>
                             <% if (person.born_bc) { %> <%= new
                             Date(person.birth_date).getFullYear().toString().padStart(4)
-                            %> <%= person.born_bc ? 'BC' : '' %> <% } else { %>
-                            <%= new
-                            Date(person.birth_date).toLocaleDateString("nl-BE")
+                            %> <%= person.born_bc ? 'BC' : '' %> <% } else { %> <%=
+                            new Date(person.birth_date).toLocaleDateString("nl-BE")
                             %> <% } %>
-                        </p>
-                        <p class="card-text">
-                            <label for="age"><strong>Age:</strong></label>
-                            <input
-                                name="age"
-                                type="number"
-                                value="<%= person.age %>"
-                                style="width: 50px"
-                                min="1"
-                                max="150"
-                            />
-                            <label for="alive">
-                                <i
-                                    class="<%= person.alive ? '' : 'fas fa-cross' %>"
-                                ></i>
-                            </label>
-                            <!-- prettier-ignore -->
-                            <input
-                                type="checkbox"
-                                name="alive"
-                                id="alive"
-                                <% if (!person.alive) { %>
-                            checked <% } %> />
-                        </p>
-                        <p class="card-text">
-                            <strong>Field:</strong> <%= person.field %>
-                        </p>
-                        <p>
-                            <strong>Main interest</strong>
-                            <% person.main_interests.forEach((interest, i) => {
-                            %>
-                            <span
-                                class="badge bg-primary d-inline-flex align-items-center justify-content-center my-1"
-                            >
-                                <%= interest %>
+                        </li>
+                        <li class="list-group-item">
+                            <div class="input-group">
+                                <span class="input-group-text"><strong>Age:</strong></span>
                                 <input
-                                    type="button"
-                                    class="btn btn-danger btn-sm p-1 ms-1 d-inline-flex align-items-center justify-content-center remove"
-                                    style="line-height: 1ch !important"
-                                    value="x"
-                                    onclick="this.parentElement.remove();"
+                                    id="age"
+                                    name="age"
+                                    type="number"
+                                    value="<%= person.age %>"
+                                    class="form-control"
+                                    min="1"
+                                    max="150"
+                                    aria-label="Age of the person"
+                                    required
                                 />
-                            </span>
+                                    <!-- prettier-ignore -->
+                                    <div class="input-group-text" >
+                                        <input
+                                            type="checkbox"
+                                            name="dead"
+                                            id="dead"
+                                            class="form-check-input m-0 position-static"
+                                            aria-label="Checkbox should not be checked if the person is alive"
+                                            <% if (!person.alive) { %>
+                                        checked <% } %> />
+                                    </div>
+                                    <label for="dead" class="input-group-text"> 
+                                        <i class="fas fa-cross"></i> 
+                                    </label>
+                                    
+                            </div>
+                            
+                        </li>
+                        <li class="list-group-item">
+                            <section class="input-group">
+                                <label class="input-group-text" for="field"><strong>Field:</strong></label>
+                                <select class="form-select" name="field" id="field">
+                                    <option value="Algebra" <%= person.field === 'Algebra' ?  'selected' : '' %>>
+                                        Algebra
+                                    </option>
+                                    <option value="Geometry" <%= person.field === 'Geometry' ?  'selected' : '' %>>
+                                        Geometry
+                                    </option>
+                                    <option value="Calculus" <%= person.field === 'Calculus' ?  'selected' : '' %>>
+                                        Calculus
+                                    </option>
+                                    <option value="Statistics" <%= person.field === 'Statistics' ?  'selected' : '' %>>
+                                        Statistics
+                                    </option>
+                                </select>
+                            </section>
+                        </li>
+                        <li id="interests" class="list-group-item">
+                            <strong>Main interest:</strong>
+                            <% person.main_interests.forEach((interest, i) => { %>
+                                <button type="submit" form="interest-form" class="btn btn-danger btn-sm m-1 remove" onclick="removeInterest(this)">
+                                    <i class="fas fa-minus-circle"></i>
+                                    <span class="interest-field ">
+                                         <%= interest %>
+                                    </span>
+                                </button>
                             <% }) %>
+                            <section class="input-group my-3">
+                                <input
+                                    type="text"
+                                    name="interest"
+                                    id="interest"
+                                    class="form-control "
+                                    placeholder="Add an interest"
+                                    form="interest-form"
+                                    aria-label="Add an interest"
+                                    required
+                                />
+                                <input
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    value="Add"
+                                    form="interest-form"
+                                />
+                            </section>
+                            <input type="hidden" name="interests" />
+                        </li>
+                    </ul>
+                    <p class="card-header">
+                        <strong>Best Known For:</strong>
+                        <a
+                            href="/formulas/<%= person.best_known_for.name %>"
+                            ><%= person.best_known_for.name %></a
+                        >
+                    </p>
+                    <section class="card-body text-secondary">
+                        <p class="card-text px-3 py-1">
+                            <%= person.best_known_for.description %>
                         </p>
-                        <div class="card">
-                            <p class="card-header">
-                                <strong>Best Known For:</strong>
-                                <a
-                                    href="/formulas/<%= person.best_known_for.name %>"
-                                    ><%= person.best_known_for.name %></a
-                                >
-                            </p>
-                            <p class="card-text px-3 py-1">
-                                <%= person.best_known_for.description %>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </main>
-        </form>
+                    </section>
+                    <section
+                        id="ui"
+                        class="card-footer d-flex justify-content-between"
+                    >
+                        <a
+                            href="/people/<%= person.name %>"
+                            class="btn btn-danger"
+                        >
+                            Cancel
+                        </a>
+                        <input
+                            type="submit"
+                            class="btn btn-primary"
+                            value="Save"
+                        />
+                    </section>
+                </form>
+            </div>
+        </main>
+        <script src="/js/edit.js" defer></script>
     </body>
 </html>

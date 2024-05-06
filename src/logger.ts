@@ -12,7 +12,7 @@ export default abstract class Logger extends EventEmitter {
         this._color = color;
     }
 
-    protected log(message: string, error?: boolean) {
+    log(message: string, error?: boolean) {
         const prefix = colorize(this._process, error ? Color.red : this._color);
         console.log(`${prefix}: ${message}`);
     }
