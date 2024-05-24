@@ -1,4 +1,4 @@
-import { Color } from "global";
+import { Color, Formula, Mathematician, SortOrder, ValueType } from "./global";
 
 export async function fetchJson(
     file: "mathematicians"
@@ -83,20 +83,6 @@ function sortCopyByDate<T>(data: T[], key: keyof T, order: SortOrder) {
         return (
             new Date(a[key] as string).getTime() -
             new Date(b[key] as string).getTime()
-        );
-    });
-
-    return order === "asc" ? copy : copy.reverse();
-}
-
-function sortMathematicianByDate(data: Mathematician[], order: SortOrder) {
-    const copy = [...data];
-    copy.sort((a, b) => {
-        return (
-            // if one is bc and the other is not, the one that is is first (earlier)
-            (a.born_bc === b.born_bc ? 0 : a.born_bc ? -1 : 1) ||
-            // if both are bc or both are ad, compare the dates
-            new Date(a.birth_date).getTime() - new Date(b.birth_date).getTime()
         );
     });
 

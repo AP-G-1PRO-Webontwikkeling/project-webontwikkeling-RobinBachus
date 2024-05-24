@@ -1,4 +1,4 @@
-import { Color } from "global";
+import { Color } from "./global";
 import { colorize } from "./common";
 import { EventEmitter } from "events";
 

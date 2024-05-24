@@ -2,6 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 import session, { MemoryStore } from "express-session";
+import { User } from "./global";
 
 declare module "express-session" {
     export interface SessionData {

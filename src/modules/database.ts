@@ -9,7 +9,7 @@ import {
 } from "mongodb";
 import dotenv from "dotenv";
 import Logger from "./logger";
-import { Color } from "global";
+import { Color, Mathematician } from "./global";
 
 dotenv.config();
 

@@ -4,6 +4,14 @@ import ejs, { render } from "ejs"; // This is used internally by express (I thin
 import { compareString, includesString, sortCopy } from "./modules/common";
 import Database from "./modules/database";
 import CleanUp from "./modules/cleanup";
+import {
+    Edit,
+    Field,
+    Formula,
+    Mathematician,
+    SortOrder,
+    ValueType,
+} from "./modules/global";
 
 let data: Mathematician[] = [];
 

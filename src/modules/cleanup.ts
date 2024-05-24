@@ -1,4 +1,4 @@
-import { Color } from "global";
+import { Color } from "./global";
 import Database from "./database";
 import Logger from "./logger";
 

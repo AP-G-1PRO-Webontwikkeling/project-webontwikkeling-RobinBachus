@@ -1,3 +1,4 @@
+import { Mathematician } from "./modules/global";
 import { fetchJson } from "./modules/common";
 
 import readline from "readline-sync";
