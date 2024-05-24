@@ -1,4 +1,5 @@
-import { Color, colorize } from "./common";
+import { Color } from "global";
+import { colorize } from "./common";
 import { EventEmitter } from "events";
 
 export default abstract class Logger extends EventEmitter {

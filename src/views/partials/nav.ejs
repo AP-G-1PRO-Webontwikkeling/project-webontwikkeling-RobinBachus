@@ -1,5 +1,5 @@
 <header
-    class="navbar navbar-expand-md px-3 mb-2 navbar-dark bg-dark container-fluid sticky-top"
+    class="navbar navbar-expand-md px-4 mb-2 navbar-dark bg-dark container-fluid sticky-top"
 >
     <a class="navbar-brand" href="/">MathApi</a>
     <button
@@ -14,8 +14,8 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 
-    <nav class="collapse navbar-collapse" id="navbar">
-        <ul class="navbar-nav me-auto mb-2 mb-md-0">
+    <nav class="collapse navbar-collapse d-flex" id="navbar">
+        <ul class="navbar-nav mb-2 mb-md-0" style="width: fit-content">
             <li class="nav-item">
                 <a
                     class="nav-link <%= active === 'home' ? 'active' : '' %>"
@@ -39,14 +39,38 @@
                 >
             </li>
         </ul>
-        <form role="search" action="/">
-            <input
-                class="form-control"
-                type="search"
-                placeholder="Search"
-                aria-label="Search"
-                name="search"
-            />
+
+        <h3 class="text-light mx-auto m-0">Welkom *username*</h3>
+
+        <form role="search" action="/people">
+            <div class="input-group">
+                <input
+                    class="form-control"
+                    type="search"
+                    placeholder="Search"
+                    aria-label="Search"
+                    name="search"
+                />
+
+                <button class="btn btn-primary" type="submit">
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        fill="currentColor"
+                        class="bi bi-search"
+                        viewBox="0 0 16 16"
+                    >
+                        <path
+                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"
+                        />
+                    </svg>
+                </button>
+            </div>
         </form>
+
+        <a class="btn btn-danger ms-2 btn-sm" href="/logout">
+            <i class="fa fa-right-from-bracket"></i>
+        </a>
     </nav>
 </header>

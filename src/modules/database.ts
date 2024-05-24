@@ -8,9 +8,8 @@ import {
     WithId,
 } from "mongodb";
 import dotenv from "dotenv";
-import { Mathematician } from "./types";
 import Logger from "./logger";
-import { Color } from "./common";
+import { Color } from "global";
 
 dotenv.config();
 

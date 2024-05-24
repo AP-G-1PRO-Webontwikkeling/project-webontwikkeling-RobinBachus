@@ -1,11 +1,9 @@
 import express from "express";
 import ejs, { render } from "ejs"; // This is used internally by express (I think)
 
-import { compareString, includesString, sortCopy } from "./common";
-import type { ValueType, Formula, Mathematician, Edit } from "./types";
-import Database from "./database";
-import { CleanUp } from "./cleanup";
-import { WithId } from "mongodb";
+import { compareString, includesString, sortCopy } from "./modules/common";
+import Database from "./modules/database";
+import CleanUp from "./modules/cleanup";
 
 let data: Mathematician[] = [];
 
@@ -44,15 +42,16 @@ app.get("/", (req, res) => {
 app.get("/people", async (req, res) => {
     let people = [...data];
     let sort: keyof Mathematician = "name";
-    let order = "asc";
+    let order: SortOrder = "asc";
     if (req.query.filter) {
-        const filter = req.query.filter as string;
-        people = data.filter((person) => includesString(person.name, filter));
+        const filter = req.query.filter as Field;
+        people = data.filter((person) => person.field === filter);
     }
     if (req.query.sort) {
         sort = req.query.sort as keyof Mathematician;
-        order = req.query.order as string;
-        people = sortData(sort, order);
+        order = req.query.order as SortOrder;
+
+        people = sortData(sort, order, people);
     }
 
     res.render("people", {
@@ -73,19 +72,6 @@ app.get("/people/:name", (req, res) => {
             status: `404 - Page Not Found`,
         });
     else res.render("person", { person });
-});
-
-app.get("/people_test/:name", (req, res) => {
-    const name = req.params.name;
-    const person = data.find((person) => compareString(person.name, name));
-
-    // if person is not found return 404 page
-    if (!person)
-        res.status(404).render("error", {
-            message: "Person not found",
-            status: `404 - Page Not Found`,
-        });
-    else res.render("person_test", { person });
 });
 
 app.get("/people/:name/edit", (req, res) => {
@@ -203,12 +189,16 @@ function searchFormulas(this: any, person: Mathematician): Formula | null {
  * @param order - order to sort in
  * @returns a sorted array
  **/
-function sortData(key: keyof Mathematician, order: string) {
+function sortData(
+    key: keyof Mathematician,
+    order: SortOrder,
+    _data: Mathematician[] = data
+) {
     let type: ValueType = "string";
     if (key === "age") type = "number";
     if (key === "birth_date") type = "date";
 
-    return sortCopy(data, key, order, type);
+    return sortCopy(_data, key, order, type);
 }
 
 export {};

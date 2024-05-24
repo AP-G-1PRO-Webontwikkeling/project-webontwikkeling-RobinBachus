@@ -1,5 +1,4 @@
-import { fetchJson } from "./common";
-import { Formula, Mathematician } from "./types";
+import { fetchJson } from "./modules/common";
 
 import readline from "readline-sync";
 

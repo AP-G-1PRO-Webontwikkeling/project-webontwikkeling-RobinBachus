@@ -1,16 +1,4 @@
-import { Formula, Mathematician, ValueType } from "./types";
-
-/** Color codes for console output*/
-export enum Color {
-    red = "\x1b[31m",
-    green = "\x1b[32m",
-    yellow = "\x1b[33m",
-    blue = "\x1b[34m",
-    magenta = "\x1b[35m",
-    cyan = "\x1b[36m",
-    white = "\x1b[37m",
-    reset = "\x1b[0m",
-}
+import { Color } from "global";
 
 export async function fetchJson(
     file: "mathematicians"
@@ -58,7 +46,7 @@ export function includesString(a: string, b: string) {
 export function sortCopy<T>(
     data: T[],
     key: keyof T,
-    order: string,
+    order: SortOrder,
     valueType: ValueType
 ) {
     const copy = [...data];
@@ -74,31 +62,43 @@ export function sortCopy<T>(
     }
 }
 
-function sortCopyByString<T>(data: T[], key: keyof T, order: string) {
+function sortCopyByString<T>(data: T[], key: keyof T, order: SortOrder) {
     const copy = [...data];
-    return copy.sort((a, b) => {
-        return (
-            (a[key] as string).localeCompare(b[key] as string) *
-            (order === "asc" ? 1 : -1)
-        );
+    copy.sort((a, b) => {
+        return (a[key] as string).localeCompare(b[key] as string);
     });
+
+    return order === "asc" ? copy : copy.reverse();
 }
 
-function sortCopyByNumber<T>(data: T[], key: keyof T, order: string) {
+function sortCopyByNumber<T>(data: T[], key: keyof T, order: SortOrder) {
     const copy = [...data];
-    return copy.sort((a, b) => {
-        return (
-            (a[key] as number) - (b[key] as number) * (order === "asc" ? 1 : -1)
-        );
-    });
+    copy.sort((a, b) => (a[key] as number) - (b[key] as number));
+    return order === "asc" ? copy : copy.reverse();
 }
 
-function sortCopyByDate<T>(data: T[], key: keyof T, order: string) {
+function sortCopyByDate<T>(data: T[], key: keyof T, order: SortOrder) {
     const copy = [...data];
-    return copy.sort((a, b) => {
+    copy.sort((a, b) => {
         return (
             new Date(a[key] as string).getTime() -
-            new Date(b[key] as string).getTime() * (order === "asc" ? 1 : -1)
+            new Date(b[key] as string).getTime()
         );
     });
+
+    return order === "asc" ? copy : copy.reverse();
+}
+
+function sortMathematicianByDate(data: Mathematician[], order: SortOrder) {
+    const copy = [...data];
+    copy.sort((a, b) => {
+        return (
+            // if one is bc and the other is not, the one that is is first (earlier)
+            (a.born_bc === b.born_bc ? 0 : a.born_bc ? -1 : 1) ||
+            // if both are bc or both are ad, compare the dates
+            new Date(a.birth_date).getTime() - new Date(b.birth_date).getTime()
+        );
+    });
+
+    return order === "asc" ? copy : copy.reverse();
 }

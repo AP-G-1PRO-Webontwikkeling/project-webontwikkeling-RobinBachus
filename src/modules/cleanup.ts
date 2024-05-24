@@ -1,4 +1,4 @@
-import { Color, colorize } from "./common";
+import { Color } from "global";
 import Database from "./database";
 import Logger from "./logger";
 
@@ -11,7 +11,7 @@ const events = [
     `SIGTERM`,
 ];
 
-export class CleanUp extends Logger {
+export default class CleanUp extends Logger {
     private _database: Database;
     private _exitCode: number = 0;
 
