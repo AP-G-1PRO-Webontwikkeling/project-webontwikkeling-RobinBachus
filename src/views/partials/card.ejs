@@ -12,14 +12,14 @@
         </a>
     </td>
 
-    <td>
+    <td scope="row">
         <%= card.age %> <i class="<%= card.alive ? '' : 'fas fa-cross' %>"></i>
     </td>
 
-    <td>
+    <td scope="row">
         <%= new Date(card.birth_date).getFullYear().toString().padStart(4) %>
         <%= card.born_bc ? 'BC' :'AD' %>
     </td>
 
-    <td><%- include('./field', { field: card.field }) %></td>
+    <td scope="row"><%- include('./field', { field: card.field }) %></td>
 </tr>

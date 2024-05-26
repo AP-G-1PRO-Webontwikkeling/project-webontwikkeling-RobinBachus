@@ -1,4 +1,4 @@
-import { Color, Formula, Mathematician, SortOrder, ValueType } from "./global";
+import { Color, Formula, Mathematician, SortOrder, ValueType } from "./types";
 
 export async function fetchJson(
     file: "mathematicians"

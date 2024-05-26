@@ -1,28 +1,29 @@
-import express from "express";
 import ejs, { render } from "ejs"; // This is used internally by express (I think)
+import express from "express";
+import bcrypt from "bcrypt";
 
+import CleanUp from "./modules/cleanup";
 import { compareString, includesString, sortCopy } from "./modules/common";
 import Database from "./modules/database";
-import CleanUp from "./modules/cleanup";
-import {
+
+import type {
     Edit,
     Field,
     Formula,
     Mathematician,
     SortOrder,
     ValueType,
-} from "./modules/global";
+} from "./modules/types";
+import session from "./modules/session";
+
+let db: Database = new Database();
+new CleanUp(db);
 
 let data: Mathematician[] = [];
 
-let db: Database;
-
-(async () => {
-    db = new Database();
-    new CleanUp(db);
-    await db.connect();
-    data = await db.getMathematicians();
-})();
+db.on("updated", () => {
+    data = db.mathematicians;
+});
 
 // =================== Server ===================
 
@@ -34,9 +35,20 @@ app.set("view engine", "ejs");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
+app.use(session);
 
 app.use((req, res, next) => {
-    if (!req.query.search) return next();
+    db.refreshData();
+
+    // ==== Quarentine ====
+    // if (!req.session.user && req.path !== "/login" && req.method !== "POST") {
+    //     res.redirect("/login");
+    //     return;
+    // }
+
+    res.locals.user = req.session.user;
+
+    if (req.session) if (!req.query.search) return next();
     const results = search(req.query.search as string);
     res.render("search", { results, query: req.query.search });
 });
@@ -45,6 +57,43 @@ app.use((req, res, next) => {
 
 app.get("/", (req, res) => {
     res.render("index");
+});
+
+app.get("/login", (req, res) => {
+    if (req.session.user) res.redirect("/");
+    else if (req.query.status === "401")
+        res.render("login", { error: "Could not log in" });
+    else if (req.query.status === "409")
+        res.render("login", { error: "Account already exists" });
+    else res.render("login", { error: null });
+});
+
+app.post("/login", async (req, res) => {
+    const { username, password } = req.body;
+    console.log(req.body);
+    const user = await db.login(username, password);
+    if (user) {
+        req.session.user = user;
+        res.redirect("/");
+    } else res.redirect("back?status=401");
+});
+
+app.post("/signup", async (req, res) => {
+    const { username, password } = req.body;
+    console.log(req.body);
+    if (!username || !password) {
+        res.render("login", { error: "Missing username or password" });
+        return;
+    }
+    const user = { username, pass: bcrypt.hashSync(password, 10) };
+    const result = await db.addUser(user);
+    console.log(result ?? "Failed to add user");
+    if (!result) {
+        res.render("/login", { error: "Account already exists" });
+        return;
+    }
+    req.session.user = user;
+    res.redirect("/");
 });
 
 app.get("/people", async (req, res) => {
@@ -116,12 +165,12 @@ app.post("/people/:name/edit", async (req, res) => {
         main_interests: editData.interests.split(";"),
     };
 
-    db.log(`Updating ${person.name}...`);
+    db.log(`Updating '${person.name}'...`);
 
     const result = await db.updateMathematician(person._id, update);
     db.log(result?.modifiedCount === 1 ? "Success" : "Failed");
 
-    data = await db.getMathematicians();
+    await db.refreshData();
 
     res.redirect(`/people/${req.params.name}`);
 });

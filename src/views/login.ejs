@@ -2,23 +2,61 @@
 <html lang="en">
     <%- include("partials/head", {title: "Log in"}) %>
     <body class="vh-100">
-        <!-- <%- include('partials/nav', {active: ''}) %> -->
+        <header class="navbar navbar-dark bg-dark sticky-top d-flex">
+            <a class="navbar-brand mx-auto h1 m-0" href="/">MathApi</a>
+        </header>
+
         <main class="d-flex h-75 p-3 justify-content-center align-items-center">
-            <div class="card mb-3">
-                <div class="card-header text-bg-danger">
-                    Something went wrong!
-                </div>
-                <div class="card-body bg-danger-subtle">
-                    <p class="card-text">
-                        Message: <%= message %> <br />
-                        Status: <%= status %>
-                    </p>
-                    <button
-                        class="btn btn-primary"
-                        onclick="window.history.back()"
-                    >
-                        Go Back
-                    </button>
+            <div class="card" style="width: 18rem">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Log in</h5>
+                    <form id="signup" action="/signup" method="post">
+                        <form id="login" action="/login" method="post">
+                            <div class="mb-3">
+                                <label for="username" class="form-label"
+                                    >username</label
+                                >
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    id="username"
+                                    name="username"
+                                    required
+                                />
+                            </div>
+                            <div class="mb-3">
+                                <label for="password" class="form-label"
+                                    >Password</label
+                                >
+                                <input
+                                    type="password"
+                                    class="form-control"
+                                    id="password"
+                                    name="password"
+                                    required
+                                />
+                            </div>
+                            <div class="btn-group d-flex">
+                                <input
+                                    type="submit"
+                                    class="btn btn-primary"
+                                    value="Log in"
+                                    form="login"
+                                />
+                                <input
+                                    type="submit"
+                                    class="btn btn-secondary"
+                                    value="Sign up"
+                                    form="signup"
+                                />
+                            </div>
+                        </form>
+                    </form>
+                    <% if (error) { %>
+                    <div class="alert alert-danger mt-3" role="alert">
+                        <%= error %>
+                    </div>
+                    <% } %>
                 </div>
             </div>
         </main>

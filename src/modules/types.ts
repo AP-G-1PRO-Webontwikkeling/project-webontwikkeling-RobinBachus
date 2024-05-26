@@ -31,8 +31,8 @@ export interface Edit {
 
 export interface User {
     username: string;
-    password_hash: string;
-    image: string;
+    pass: string;
+    admin?: string;
 }
 
 export type ValueType = "string" | "number" | "date";

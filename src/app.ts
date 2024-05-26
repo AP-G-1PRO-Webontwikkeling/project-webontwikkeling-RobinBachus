@@ -1,20 +1,19 @@
-import { Mathematician } from "./modules/global";
+import { Mathematician } from "./modules/types";
 import { fetchJson } from "./modules/common";
 
 import readline from "readline-sync";
 
 (async function main() {
     const mathematicians = await fetchJson("mathematicians");
-    const formulas = await fetchJson("formulas");
 
     let exit: boolean = false;
     while (!exit) {
         console.log(
             "\nWelcome to the JSON data viewer!\
-		\
-		\n\n1. View all data \
-		\n2. Search by ID \
-		\n3. Exit"
+            \
+    		\n\n1. View all data \
+            \n2. Search by ID \
+            \n3. Exit"
         );
 
         const choice: number = readline.questionInt(
@@ -28,6 +27,12 @@ import readline from "readline-sync";
                 break;
             case 2:
                 findById(mathematicians);
+                const id = readline.question("Please enter the ID: ");
+                const person = mathematicians.find(
+                    (mathematician) =>
+                        mathematician.id.toLowerCase() === id.toLowerCase()
+                );
+                console.log(person);
                 break;
             case 3:
                 exit = true;
@@ -47,8 +52,9 @@ import readline from "readline-sync";
 })();
 
 function showAll(mathematicians: Mathematician[]) {
-    for (const person of mathematicians)
+    for (const person of mathematicians) {
         console.log(person.name, `(${person.id})`);
+    }
 }
 
 function findById(mathematicians: Mathematician[]) {
@@ -65,16 +71,20 @@ function findById(mathematicians: Mathematician[]) {
         0
     );
 
-    if (!person) console.log("Could not find mathematician with ID", id);
-    else {
-        for (key in person)
-            console.log(
-                (key as string).padEnd(maxWidth + 1),
-                "-",
-                person[key],
-                key === "description" ? "\n" : ""
-            );
+    if (!person) {
+        console.log("Could not find mathematician with ID", id);
+        return;
     }
+
+    for (key in person) {
+        console.log(
+            (key as string).padEnd(maxWidth + 1),
+            "-",
+            person[key],
+            key === "description" ? "\n" : ""
+        );
+    }
+
     console.log();
 }
 
