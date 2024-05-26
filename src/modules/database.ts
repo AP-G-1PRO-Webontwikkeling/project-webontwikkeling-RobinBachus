@@ -22,6 +22,7 @@ export default class Database extends Logger {
     private _mathCollection?: Collection<Mathematician>;
     private _userCollection?: Collection<User>;
 
+    private _timer?: NodeJS.Timeout;
     private _lastUpdate: number = Date.now();
 
     mathematicians: WithId<Mathematician>[] = [];
@@ -45,8 +46,9 @@ export default class Database extends Logger {
         this.refreshData();
     }
 
-    async refreshData() {
+    async refreshData(force = false) {
         if (
+            !force &&
             this._lastUpdate + 60000 > Date.now() &&
             this.mathematicians.length &&
             this.users.length
@@ -62,17 +64,21 @@ export default class Database extends Logger {
         this.users = (await this._userCollection?.find().toArray()) ?? [];
         this._lastUpdate = Date.now();
         this.emit("updated");
-        await this.close();
     }
 
     async connect() {
         if (this.ready) return;
+        this._timer = setTimeout(() => {
+            this.log("Database connection timed out");
+            this.close();
+        }, 60000); // 1 minute
         await this._client.connect();
         this.log("Database connected");
         this._setReady();
     }
 
     async close() {
+        clearTimeout(this._timer);
         await this._client.close();
         this.log("Database closed");
         this._setReady(false);
@@ -82,46 +88,34 @@ export default class Database extends Logger {
         filter: Filter<Mathematician> = {},
         sort: Sort = {}
     ): Promise<WithId<Mathematician>[] | null> {
-        try {
-            this.connect();
-            return (
-                this._mathCollection?.find(filter).sort(sort).toArray() ?? null
-            );
-        } catch {
-            this.log("Failed to get mathematicians", true);
-            return null;
-        } finally {
-            this.close();
-        }
+        await this.connect();
+        return this._mathCollection?.find(filter).sort(sort).toArray() ?? null;
     }
 
     async updateMathematician(_id: ObjectId, update: Partial<Mathematician>) {
-        try {
-            await this.connect();
-            return this._mathCollection?.updateOne({ _id }, { $set: update });
-        } finally {
-            await this.refreshData();
-            this.close();
-        }
+        await this.connect();
+        const res = await this._mathCollection?.updateOne(
+            { _id },
+            { $set: update }
+        );
+        await this.refreshData(true);
+        return res;
     }
 
     async getUser(
         username: string,
         cache = true
     ): Promise<WithId<User> | null> {
-        if (!cache) await this.refreshData();
+        if (!cache) await this.refreshData(true);
         return this.users.find((user) => user.username === username) ?? null;
     }
 
     async addUser(user: User) {
+        await this.connect();
         if (await this.getUser(user.username, false)) return false;
-        try {
-            await this.connect();
-            return this._userCollection?.insertOne(user);
-        } finally {
-            await this.refreshData();
-            this.close();
-        }
+        const res = (await this._userCollection?.insertOne(user)) ?? false;
+        await this.refreshData(true);
+        return res;
     }
 
     async login(username: string, pass: string) {
