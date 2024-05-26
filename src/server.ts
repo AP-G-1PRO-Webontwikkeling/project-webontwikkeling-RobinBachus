@@ -6,6 +6,8 @@ import CleanUp from "./modules/cleanup";
 import { compareString, includesString, sortCopy } from "./modules/common";
 import Database from "./modules/database";
 
+import dotenv from "dotenv"
+
 import type {
     Edit,
     Field,
@@ -15,6 +17,8 @@ import type {
     ValueType,
 } from "./modules/types";
 import session from "./modules/session";
+
+dotenv.config();
 
 let db: Database = new Database();
 new CleanUp(db);
